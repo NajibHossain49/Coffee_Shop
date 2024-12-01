@@ -1,35 +1,48 @@
-import { createBrowserRouter } from "react-router-dom";
-import MainLayout from "../Layouts/MainLayout";
-import Home from "../Pages/Home";
-import Coffees from "../Pages/Coffees";
-import Dashboard from "../Pages/Dashboard";
-import CoffeeCard from "../Components/CoffeeCard";
+import { createBrowserRouter } from 'react-router-dom'
+import MainLayout from '../layouts/MainLayout'
+import Home from '../pages/Home'
+import Coffees from '../pages/Coffees'
+import Dashboard from '../pages/Dashboard'
+import CoffeeCards from '../components/CoffeeCards'
+import CoffeeDetails from '../pages/CoffeeDetails'
 const routes = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <MainLayout />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Home />,
-        loader: () => fetch("../categories.json"),
+        loader: () => fetch('../categories.json'),
         children: [
           {
-            path: "/",
-            element: <CoffeeCard />,
-            loader: () => fetch("../coffees.json"),
+            path: '/',
+            element: <CoffeeCards />,
+            loader: () => fetch('../coffees.json'),
           },
           {
-            path: "/category/:category",
-            element: <CoffeeCard />,
-            loader: () => fetch("../coffees.json"),
+            path: '/category/:category',
+            element: <CoffeeCards />,
+            loader: () => fetch('../coffees.json'),
           },
         ],
       },
-      { path: "/coffees", element: <Coffees /> },
-      { path: "/dashboard", element: <Dashboard /> },
+      {
+        path: '/coffees',
+        element: <Coffees />,
+        loader: () => fetch('../coffees.json'),
+      },
+      {
+        path: '/dashboard',
+        element: <Dashboard />,
+      },
+      {
+        path: '/coffee/:id',
+        element: <CoffeeDetails />,
+        loader: () => fetch('../coffees.json'),
+      },
     ],
   },
-]);
+])
 
-export default routes;
+export { routes }
